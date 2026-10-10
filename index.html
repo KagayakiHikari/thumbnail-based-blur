@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="图像降采样、卷积与缓存重采样演示"><title>Thumbnail Blur · 缩略图模糊</title><link rel="stylesheet" href="./demo/style.css"></head>
+<body>
+<img id="wallpaper" src="./demo/wallpaper.svg" alt="" aria-hidden="true">
+<main>
+  <header><div class="topline"><span class="badge">THUMBNAIL BLUR / 0.2</span><label class="language"><span data-i18n="language">语言</span><select id="language" aria-label="Language / 语言 / 言語"><option value="zh" lang="zh-CN">中文</option><option value="en" lang="en">English</option><option value="ja" lang="ja">日本語</option></select></label></div><h1><span data-i18n="heading1">降采样与卷积，</span><br><span data-i18n="heading2">缓存与重采样。</span></h1><p data-i18n="intro">图像输入 → 像素处理 → 缓存输出。</p></header>
+  <section class="workspace" data-i18n-aria="workspace" aria-label="材质演示">
+    <div class="stage"><span class="label" data-i18n="cachedWallpaper">缓存壁纸</span><div id="moving"><p id="glass-text">光影流过，文字依然清晰。</p><p class="caption" data-i18n="caption">移动时按实际位置取色 · 滑动窗口盒式模糊</p></div><div class="comparison"><canvas id="panel" data-i18n-aria="cachedBlur" aria-label="缩略图缓存模糊"></canvas><div class="live" data-i18n="liveBlur">实时 CSS 模糊</div><span data-i18n="cachedBlur">缓存模糊</span></div></div>
+    <aside><h2 data-i18n="lab">材质实验室</h2><label><span data-i18n="size">缩略图最长边</span> <output id="size-value">256 px</output><input id="size" type="range" min="64" max="512" step="16" value="256"></label><label><span data-i18n="blur">模糊强度</span> <output id="blur-value">20 px</output><input id="blur" type="range" min="0" max="60" value="20"></label><label><span data-i18n="tint">乳白填充</span> <output id="tint-value">20%</output><input id="tint" type="range" min="0" max="100" value="20"></label><label><span data-i18n="text">演示文字</span><input id="text" type="text" value="光影流过，文字依然清晰。" maxlength="100"></label><div class="actions"><button id="animate" type="button" aria-pressed="false">开始移动</button><label class="upload"><span data-i18n="upload">更换背景</span><input id="upload" type="file" accept="image/png,image/jpeg,image/webp"></label></div><p id="status" role="status">准备背景…</p><dl><div><dt data-i18n="dimensions">缓存尺寸</dt><dd id="dimensions">—</dd></div><div><dt data-i18n="builds">累计生成</dt><dd id="builds">—</dd></div><div><dt data-i18n="duration">最近生成耗时</dt><dd id="duration">—</dd></div></dl><p class="note" data-i18n="note">静态壁纸的近似材质。实时 CSS 样本位于另一个位置，只用于观察质感，不是像素等价对比。复杂字形可能与原生文字有差异。</p></aside>
+  </section>
+  <footer><span data-i18n="footer">零运行依赖 · 浏览器 Canvas · MIT License</span><a id="readme" href="./README.md" data-i18n="readme">使用说明 ↗</a></footer>
+</main><script type="module" src="./demo/app.js"></script>
+</body></html>
