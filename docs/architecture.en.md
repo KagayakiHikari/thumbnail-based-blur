@@ -1,6 +1,6 @@
 # Module architecture
 
-[中文](architecture.md) · **English** · [日本語](architecture.ja.md)
+[中文](architecture.md) · **English**
 
 | Module | Responsibility |
 | --- | --- |

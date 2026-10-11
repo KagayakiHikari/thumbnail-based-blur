@@ -22,13 +22,13 @@ export const locales = {
     tooLarge: 'Choose an image smaller than 20 MB', decodeFailed: 'Cannot decode this image. Try another one.', loadFailed: 'Background failed to load. Try changing it.'
   },
   ja: {
-    lang: 'ja', title: '縮小画像によるぼかし効果', description: '画像縮小・畳み込み・キャッシュ再サンプリングのデモ', readmePath: './README.ja.md',
+    lang: 'ja', title: '縮小画像によるぼかし効果', description: '画像縮小・畳み込み・キャッシュ再サンプリングのデモ', readmePath: './README.en.md',
     language: '言語', heading1: '縮小と畳み込み。', heading2: 'キャッシュと再描画。', intro: '画像入力 → 画素処理 → キャッシュ出力。',
     workspace: '質感のデモ', cachedWallpaper: '壁紙キャッシュ', caption: '現在位置で色を取得 · スライディングウィンドウ式ボックスぼかし', liveBlur: 'リアルタイム CSS ぼかし', cachedBlur: 'キャッシュぼかし',
     lab: '質感ラボ', size: '縮小画像の長辺', blur: 'ぼかしの強さ', tint: '乳白色の濃さ', text: 'デモの文字', upload: '背景を変更',
     dimensions: 'キャッシュのサイズ', builds: '生成回数', duration: '直近の生成時間',
     note: '静止した壁紙の質感を近似します。CSS の比較サンプルは別の位置にあり、質感を示すもので、画素単位の一致を比較するものではありません。複雑な字形は通常の文字と異なる場合があります。',
-    footer: '実行時の外部依存なし · ブラウザー Canvas · MIT License', readme: '使い方 ↗', sample: '光が流れても、文字はくっきり。',
+    footer: '実行時の外部依存なし · ブラウザー Canvas · MIT License', readme: '使い方（英語）↗', sample: '光が流れても、文字はくっきり。',
     start: '動きを開始', pause: '動きを一時停止', loading: '背景を準備中…', ready: 'キャッシュ準備完了 · 移動中も再利用', fallback: '背景の読み取りに失敗 · 塗り色で代替',
     tooLarge: '20 MB 未満の画像を選んでください', decodeFailed: '画像をデコードできません。別の画像をお試しください。', loadFailed: '背景を読み込めませんでした。背景を変更してください。'
   }

@@ -1,6 +1,6 @@
 # Thumbnail-Based Blur: Technical Specification
 
-[中文](blur-effect.md) · **English** · [日本語](blur-effect.ja.md)
+[中文](blur-effect.md) · **English**
 
 This module implements downsampling, separable box convolution, color transformation, caching, and coordinate resampling. Inputs are a decoded image, a mapping rectangle, and numeric parameters. Output is Canvas pixel data. Core computation is independent of text masks.
 

@@ -1,6 +1,6 @@
 # 验证范围
 
-**中文** · [English](verification.en.md) · [日本語](verification.ja.md)
+**中文** · [English](verification.en.md)
 
 语法检查、9 项自动测试和静态构建。测试覆盖独立朴素卷积对照、边缘半径、cover 映射、恒色与混色端点、参数拒绝、DOMRect 原型坐标、缓存命中与失效、读取失败回退、三语键与文档路径。
 

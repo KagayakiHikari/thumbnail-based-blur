@@ -1,12 +1,12 @@
 # Thumbnail-Based Blur
 
-[中文](README.md) · **English** · [日本語](README.ja.md)
+[中文](README.md) · **English**
 
 A browser image-processing module with zero runtime dependencies. Implements downsampling, three separable box-convolution passes, color transformation, caching, and coordinate resampling. Includes standalone ES modules, optional alpha masks, a trilingual parameter demo, algorithm tests, and a static build.
 
 **Version: 0.2.0.** Uses approximate convolution and byte-channel calculations; fixed frame rates and pixel equivalence with CSS `backdrop-filter` are not guaranteed.
 
-The demo supports Chinese, English, and Japanese. Use the language selector at the top. The first visit follows your browser language; subsequent visits remember your selection. Switching languages preserves custom demo text and material settings.
+Documentation is available in Chinese and English. The demo supports Chinese, English, and Japanese; the Japanese interface links to the English guide. Use the language selector at the top. The first visit follows your browser language; subsequent visits remember your selection. Switching languages preserves custom demo text and material settings.
 
 ## Demo
 

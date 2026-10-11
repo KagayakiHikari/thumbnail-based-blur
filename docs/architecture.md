@@ -1,6 +1,6 @@
 # 模块架构
 
-**中文** · [English](architecture.en.md) · [日本語](architecture.ja.md)
+**中文** · [English](architecture.en.md)
 
 | 模块 | 职责 |
 | --- | --- |
