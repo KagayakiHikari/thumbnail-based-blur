@@ -1,4 +1,4 @@
-# 缩略图模糊技术说明
+# 通过缩略图方式实现模糊效果：技术说明
 
 **中文** · [English](blur-effect.en.md) · [日本語](blur-effect.ja.md)
 

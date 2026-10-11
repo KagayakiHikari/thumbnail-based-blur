@@ -1,4 +1,4 @@
-# Thumbnail blur technical specification
+# Thumbnail-Based Blur: Technical Specification
 
 [中文](blur-effect.md) · **English** · [日本語](blur-effect.ja.md)
 

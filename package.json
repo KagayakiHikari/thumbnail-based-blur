@@ -1,5 +1,5 @@
 {
-  "name": "thumbnail-blur",
+  "name": "thumbnail-based-blur",
   "version": "0.2.0",
   "description": "Downsampled image convolution, color transformation, caching, and coordinate resampling",
   "type": "module",

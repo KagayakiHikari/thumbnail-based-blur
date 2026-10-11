@@ -1,4 +1,4 @@
-# Thumbnail Blur
+# Thumbnail-Based Blur
 
 [中文](README.md) · **English** · [日本語](README.ja.md)
 
@@ -38,8 +38,8 @@ npm run build
 GitHub web uploads may reject dotfiles. If you see `This file is hidden`, upload the other contents, then use **Add file → Create new file** to recreate `.gitignore`, `.nojekyll`, and `.github/workflows/pages.yml` at their original paths. Keep the leading dots.
 
 1. Extract the **source ZIP**.
-2. Sign in to GitHub. Select **+ → New repository**, name it `thumbnail-blur`, choose **Public**, and create an empty repository.
-3. Click **uploading an existing file**. Open the extracted `thumbnail-blur` folder and drag its **contents** into GitHub, including `.github`. Do not upload the ZIP or add an extra outer folder.
+2. Sign in to GitHub. Select **+ → New repository**, name it `thumbnail-based-blur`, choose **Public**, and create an empty repository.
+3. Click **uploading an existing file**. Open the extracted `thumbnail-based-blur` folder and drag its **contents** into GitHub, including `.github`. Do not upload the ZIP or add an extra outer folder.
 4. Click **Commit changes**. Your source code is now on GitHub.
 5. For a live demo, open **Settings → Pages → Build and deployment → Source** and select **GitHub Actions**.
 6. Open **Actions → Test and deploy demo → Run workflow**, select `main`, and run it. Future pushes to `main` also trigger deployment.
@@ -53,7 +53,7 @@ If you prefer Git, replace the placeholder URL below with your own empty reposit
 git init -b main
 git add .
 git commit -m "Initial release: thumbnail blur demo"
-git remote add origin https://github.com/YOUR_USERNAME/thumbnail-blur.git
+git remote add origin https://github.com/YOUR_USERNAME/thumbnail-based-blur.git
 git push -u origin main
 ```
 

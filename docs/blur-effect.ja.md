@@ -1,4 +1,4 @@
-# 縮小画像ぼかしの技術仕様
+# 縮小画像によるぼかし効果：技術仕様
 
 [中文](blur-effect.md) · [English](blur-effect.en.md) · **日本語**
 

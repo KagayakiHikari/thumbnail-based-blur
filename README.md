@@ -1,4 +1,4 @@
-# Thumbnail Blur
+# 通过缩略图方式实现模糊效果
 
 **中文** · [English](README.en.md) · [日本語](README.ja.md)
 
@@ -37,9 +37,9 @@ npm run build
 
 GitHub 网页上传可能拒绝以点开头的文件。遇到 `This file is hidden` 时，先上传其余内容，再用 **Add file → Create new file** 按原路径补建 `.gitignore`、`.nojekyll` 和 `.github/workflows/pages.yml`；不要去掉名称前面的点。
 
-初学者可直接用网页上传：解压源码 ZIP，在 GitHub 创建一个名为 `thumbnail-blur` 的公开空仓库，点击 **uploading an existing file**，将解压后的 `thumbnail-blur` 文件夹**里面**的文件与文件夹全部拖入（包括 `.github`），然后点击 **Commit changes**。不要上传 ZIP 文件，也不要多套一层外部文件夹。
+初学者可直接用网页上传：解压源码 ZIP，在 GitHub 创建一个名为 `thumbnail-based-blur` 的公开空仓库，点击 **uploading an existing file**，将解压后的 `thumbnail-based-blur` 文件夹**里面**的文件与文件夹全部拖入（包括 `.github`），然后点击 **Commit changes**。不要上传 ZIP 文件，也不要多套一层外部文件夹。
 
-1. 新建空仓库（推荐名称 `thumbnail-blur`），将本项目完整内容上传，保留 `.github/` 等隐藏目录，以 `main` 为默认分支。网页上传或 Git 推送都可以。
+1. 新建空仓库（推荐名称 `thumbnail-based-blur`），将本项目完整内容上传，保留 `.github/` 等隐藏目录，以 `main` 为默认分支。网页上传或 Git 推送都可以。
 2. 在仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。
 3. 推送到 `main` 或在 Actions 手动运行 **Test and deploy demo**。工作流先做语法检查、算法测试与静态构建，再部署到 Pages。Pull Request 只做验证。
 4. 发布地址以工作流中 `github-pages` 环境显示的 URL 为准。
@@ -51,7 +51,7 @@ git init -b main
 git add .
 git commit -m "Initial release: thumbnail blur demo"
 # 将下面的占位地址替换成自己新建仓库的地址
-git remote add origin https://github.com/YOUR_USERNAME/thumbnail-blur.git
+git remote add origin https://github.com/YOUR_USERNAME/thumbnail-based-blur.git
 git push -u origin main
 ```
 

@@ -1,4 +1,4 @@
-# Thumbnail Blur
+# 縮小画像によるぼかし効果
 
 [中文](README.md) · [English](README.en.md) · **日本語**
 
@@ -38,8 +38,8 @@ npm run build
 GitHub の Web アップロードはドットで始まるファイルを拒否する場合があります。`This file is hidden` が出たら残りを先にアップロードし、**Add file → Create new file** で `.gitignore`、`.nojekyll`、`.github/workflows/pages.yml` を元のパスで作成してください。先頭のドットは残します。
 
 1. **ソース ZIP** を解凍します。
-2. GitHub にログインし、**+ → New repository** を選びます。名前を `thumbnail-blur`、公開範囲を **Public** にして空のリポジトリを作成します。
-3. **uploading an existing file** をクリックします。解凍した `thumbnail-blur` フォルダーを開き、その**中身**をすべてドラッグします。`.github` も含めてください。ZIP 自体や外側のフォルダーはアップロードしません。
+2. GitHub にログインし、**+ → New repository** を選びます。名前を `thumbnail-based-blur`、公開範囲を **Public** にして空のリポジトリを作成します。
+3. **uploading an existing file** をクリックします。解凍した `thumbnail-based-blur` フォルダーを開き、その**中身**をすべてドラッグします。`.github` も含めてください。ZIP 自体や外側のフォルダーはアップロードしません。
 4. **Commit changes** をクリックすると、ソースのアップロードが完了します。
 5. デモを公開するには、**Settings → Pages → Build and deployment → Source** で **GitHub Actions** を選びます。
 6. **Actions → Test and deploy demo → Run workflow** を開き、`main` を選択して実行します。その後は `main` への push でも自動実行されます。
@@ -53,7 +53,7 @@ Git を使う場合は、次の仮 URL を自分の空リポジトリの URL に
 git init -b main
 git add .
 git commit -m "Initial release: thumbnail blur demo"
-git remote add origin https://github.com/YOUR_USERNAME/thumbnail-blur.git
+git remote add origin https://github.com/YOUR_USERNAME/thumbnail-based-blur.git
 git push -u origin main
 ```
 
