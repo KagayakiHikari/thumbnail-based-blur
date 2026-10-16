@@ -1,6 +1,6 @@
 # 通过缩略图方式实现模糊效果：技术说明
 
-**中文** · [English](blur-effect.en.md)
+[English](blur-effect.en.md) · **中文**
 
 本模块实现图像降采样、可分离盒式卷积、颜色变换、结果缓存和坐标重采样。输入为已解码图像、映射矩形和数值参数，输出为 Canvas 像素数据。核心计算与文字遮罩相互独立。
 
@@ -66,4 +66,4 @@ p 轮、w × h 像素和半径 r 的窗口初始化与遍历成本为 O(p × (wh
 
 处理在主线程执行，没有 Worker 或 GPU 计算实现。缓存减少重复卷积，不能消除输出重采样和合成成本。跨域读取需要 CORS 许可。管线只处理显式图像输入，不采样浏览器合成场景。固定帧率、跨浏览器像素一致性和全部字体行为尚未验证。
 
-模块结构见 [架构](architecture.md)，检查范围见 [验证](verification.md)，API 与运行方式见 [README](../README.md)。
+模块结构见 [架构](architecture.md)，检查范围见 [验证](verification.md)，API 与运行方式见 [README](../README.zh.md)。

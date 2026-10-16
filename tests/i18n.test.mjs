@@ -3,9 +3,13 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { locales, chooseLanguage } from '../demo/i18n.js';
 
-test('all three dictionaries have complete nonempty keys and cover HTML bindings', async () => {
-  const expected = Object.keys(locales.zh).sort();
+test('English and Chinese dictionaries match the ordered language selector and guide links', async () => {
+  assert.deepEqual(Object.keys(locales), ['en', 'zh']);
+  const expected = Object.keys(locales.en).sort();
   const html = await readFile(new URL('../index.html',import.meta.url),'utf8');
+  assert.match(html, /<html lang="en">/);
+  assert.deepEqual([...html.matchAll(/<option value="([^"]+)"/g)].map(match => match[1]), ['en', 'zh']);
+  assert.ok(html.includes(locales.en.sample));
   for (const locale of Object.values(locales)) {
     assert.deepEqual(Object.keys(locale).sort(),expected);
     for (const value of Object.values(locale)) assert.ok(typeof value === 'string' && value.trim());
@@ -13,10 +17,11 @@ test('all three dictionaries have complete nonempty keys and cover HTML bindings
     await readFile(new URL('../'+locale.readmePath,import.meta.url));
   }
 });
-test('language selection respects saved choice, regional languages and unsupported fallback', () => {
-  assert.equal(chooseLanguage('ja','en-US'),'ja');
-  assert.equal(chooseLanguage(null,'zh-TW'),'zh');
-  assert.equal(chooseLanguage('invalid','ja-JP'),'ja');
-  assert.equal(chooseLanguage(undefined,'fr-FR'),'en');
-  assert.equal(chooseLanguage('constructor','en-US'),'en');
+test('English is the default and valid saved choices are preserved', () => {
+  assert.equal(chooseLanguage(), 'en');
+  assert.equal(chooseLanguage(null), 'en');
+  assert.equal(chooseLanguage('zh'), 'zh');
+  assert.equal(chooseLanguage('en'), 'en');
+  assert.equal(chooseLanguage('invalid'), 'en');
+  assert.equal(chooseLanguage('constructor'), 'en');
 });

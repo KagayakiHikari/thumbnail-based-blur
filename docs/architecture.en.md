@@ -1,13 +1,13 @@
 # Module architecture
 
-[中文](architecture.md) · **English**
+**English** · [中文](architecture.md)
 
 | Module | Responsibility |
 | --- | --- |
 | src/pixels.js | Cover mapping, RGBA sliding-window convolution, color transformation |
 | src/thumbnail-blur.js | Input validation, cache keys and invalidation, Canvas output, optional mask adapter |
 | demo/app.js | Parameter binding, image decoding, output scheduling |
-| demo/i18n.js | Trilingual dictionary and language selection |
+| demo/i18n.js | Bilingual dictionary and language selection |
 | scripts/ | Local HTTP server and static file build |
 | tests/ | Independent convolution reference, cache states, translation consistency |
 

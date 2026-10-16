@@ -1,6 +1,6 @@
 # Validation scope
 
-[中文](verification.md) · **English**
+**English** · [中文](verification.md)
 
 Syntax checks, nine automated tests, and a static build. Tests cover an independent naive-convolution reference, edge radii, cover mapping, constant colors and tint endpoints, rejected parameters, DOMRect prototype coordinates, cache hits and invalidation, read-failure fallback, translation keys, and document paths.
 

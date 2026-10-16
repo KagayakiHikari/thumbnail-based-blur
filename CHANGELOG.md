@@ -2,7 +2,7 @@
 
 ## 0.2.0
 
-- Provide Chinese and English technical documentation and trilingual parameter controls.
+- Provide English and Chinese technical documentation and bilingual parameter controls.
 - Preserve custom input and numeric settings when switching languages.
 - Validate translation keys, language fallback, and document paths.
 

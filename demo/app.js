@@ -5,7 +5,7 @@ const image = $('wallpaper'), material = new ThumbnailBlur();
 let adapter, objectURL, running = false, phase = 0, lastTime = 0, frame = 0, generation = 0;
 let savedLanguage;
 try { savedLanguage = localStorage.getItem('thumbnail-blur-language'); } catch {}
-let language = chooseLanguage(savedLanguage, navigator.language), statusKey = 'loading';
+let language = chooseLanguage(savedLanguage), statusKey = 'loading';
 const t = key => locales[language][key];
 function setStatus(key) { statusKey = key; $('status').textContent = t(key); }
 function setLanguage(next) {
@@ -18,7 +18,7 @@ function setLanguage(next) {
   for (const element of document.querySelectorAll('[data-i18n-aria]')) element.setAttribute('aria-label', t(element.dataset.i18nAria));
   $('readme').href = t('readmePath');
   $('animate').textContent = t(running ? 'pause' : 'start'); setStatus(statusKey);
-  if ($('text').value === previousSample || (!adapter && $('text').value === locales.zh.sample)) {
+  if ($('text').value === previousSample || (!adapter && Object.values(locales).some(locale => $('text').value === locale.sample))) {
     adapter?.dispose(); adapter = null;
     $('text').value = t('sample'); $('glass-text').textContent = t('sample');
   } else { adapter?.dispose(); adapter = null; }

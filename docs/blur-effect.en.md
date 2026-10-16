@@ -1,6 +1,6 @@
 # Thumbnail-Based Blur: Technical Specification
 
-[中文](blur-effect.md) · **English**
+**English** · [中文](blur-effect.md)
 
 This module implements downsampling, separable box convolution, color transformation, caching, and coordinate resampling. Inputs are a decoded image, a mapping rectangle, and numeric parameters. Output is Canvas pixel data. Core computation is independent of text masks.
 
@@ -66,4 +66,4 @@ For p passes, w × h pixels, and radius r, window initialization and traversal c
 
 Computation runs on the main thread without Worker or GPU computation. Caching reduces repeated convolution but does not remove output resampling and compositing. Cross-origin reads require CORS permission. The pipeline processes an explicit image rather than the browser's composed scene. Fixed frame rates, cross-browser pixel identity, and all font behavior have not been verified.
 
-See [architecture](architecture.en.md), [validation](verification.en.md), and [README](../README.en.md) for structure, checks, and API usage.
+See [architecture](architecture.en.md), [validation](verification.en.md), and [README](../README.md) for structure, checks, and API usage.
