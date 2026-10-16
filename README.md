@@ -1,12 +1,23 @@
-# Thumbnail-Based Blur
+# Thumbnail Blur Realtime
 
 **English** · [中文](README.zh.md)
 
 A browser image-processing module with zero runtime dependencies. Implements downsampling, three separable box-convolution passes, color transformation, caching, and coordinate resampling. Includes standalone ES modules, optional alpha masks, a bilingual parameter demo, algorithm tests, and a static build.
 
-**Version: 0.2.0.** Uses approximate convolution and byte-channel calculations; fixed frame rates and pixel equivalence with CSS `backdrop-filter` are not guaranteed.
+**Version: 0.3.0.** Uses approximate convolution and byte-channel calculations; fixed frame rates and pixel equivalence with CSS `backdrop-filter` are not guaranteed.
 
 Documentation and the demo support English first and Chinese second. English is the default language. Use the selector at the top to switch languages; subsequent visits remember your selection. Switching preserves custom demo text and material settings.
+
+
+## Offline realtime version
+
+Independent offline edition based on 0.2.0. The demo rebuilds the blurred thumbnail at a default target of 30 FPS, adjustable from 1 to 60 FPS. Background animation, text motion, and sampling can be switched independently. Pausing sampling freezes the material. Measured sampling FPS updates once per second.
+
+With Node.js 22+ installed, run `start-offline.cmd` and visit http://127.0.0.1:4175. No npm installation or internet connection is needed. `npm run build` creates a self-contained `dist/` folder including the local server and launcher. Serve ES modules over HTTP rather than opening HTML directly.
+
+The core accepts decoded images, nonempty canvases, and videos with a current frame. For dynamic input, call `invalidate()` before each `prepare(source, bounds)`, then draw the result. Import `FrameSampler` from `src/frame-sampler.js`, construct it with a synchronous sample callback and `{ fps: 30, onError: console.error }`, and call `start()`. Use `setFPS(15)`, `stop()`, and `dispose()` to control its lifecycle. The core accepts 1–120 FPS.
+
+The requestAnimationFrame scheduler skips missed frames, suspends work while hidden, and resumes when visible unless manually stopped. Errors stop sampling and reach onError. Sampling is separate from position rendering. Main-thread cost and display refresh limit actual FPS. Only the explicit source is read; arbitrary DOM/CSS backgrounds are not captured. Video pixel access requires same-origin or CORS permission. See the [Chinese integration example](README.zh.md).
 
 ## Demo
 
@@ -100,11 +111,11 @@ text.refresh(); // Rebuild glyphs after font or layout changes.
 text.dispose(); // Restore native text and remove observers on cleanup.
 ```
 
-To change text, dispose the old adapter, replace the text, then attach again. After changing wallpaper dimensions or material options, call `prepare()` then `render()`. Call `invalidate()` when content changes at the same image URL. Motion resamples cached material without blurring again. Your application manages animation frames; the library does not continuously measure the page. In React, create the adapter in an effect and call `dispose()` during cleanup.
+To change text, dispose the old adapter, replace the text, then attach again. After changing wallpaper dimensions or material options, call `prepare()` then `render()`. Call `invalidate()` when content changes at the same image URL. Position rendering reuses cached material; FrameSampler rebuilds blur at the configured rate. Your application manages animation frames; the library does not continuously measure the page. In React, create the adapter in an effect and call `dispose()` during cleanup.
 
 ## Limitations
 
-- Samples the specified static wallpaper, not foreground cards, video, multiple CSS backgrounds, or arbitrary CSS transforms.
+- Reads the specified image, canvas, or video source. Foreground cards, multiple CSS backgrounds and arbitrary CSS transforms are not captured automatically.
 - Three-pass box blur and color processing are approximations. Low resolution loses detail; radius coefficient `0.58` is experimental.
 - Remote images require server CORS permission. Set `image.crossOrigin = 'anonymous'` **before** `src`. Failed reads use a cached tint fallback; `invalidate()` allows retrying.
 - Ordinary Chinese and Latin text can be explored. Per-character Canvas drawing cannot reproduce all ligatures, Arabic shaping, combining characters, or emoji. Native DOM text remains accessible to assistive technology.

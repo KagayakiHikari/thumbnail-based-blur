@@ -1,5 +1,7 @@
 # 模块架构
 
+> 0.3.0: This document describes the original static pipeline. See [realtime changes](realtime.md) for the offline FPS edition. / 此文描述原静态流程，离线帧率版本请参阅[实时扩展](realtime.md)。
+
 [English](architecture.en.md) · **中文**
 
 | 模块 | 职责 |

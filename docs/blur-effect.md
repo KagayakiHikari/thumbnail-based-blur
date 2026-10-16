@@ -1,5 +1,7 @@
 # 通过缩略图方式实现模糊效果：技术说明
 
+> 0.3.0: This document describes the original static pipeline. See [realtime changes](realtime.md) for the offline FPS edition. / 此文描述原静态流程，离线帧率版本请参阅[实时扩展](realtime.md)。
+
 [English](blur-effect.en.md) · **中文**
 
 本模块实现图像降采样、可分离盒式卷积、颜色变换、结果缓存和坐标重采样。输入为已解码图像、映射矩形和数值参数，输出为 Canvas 像素数据。核心计算与文字遮罩相互独立。

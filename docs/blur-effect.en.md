@@ -1,5 +1,7 @@
 # Thumbnail-Based Blur: Technical Specification
 
+> 0.3.0: This document describes the original static pipeline. See [realtime changes](realtime.md) for the offline FPS edition. / 此文描述原静态流程，离线帧率版本请参阅[实时扩展](realtime.md)。
+
 **English** · [中文](blur-effect.md)
 
 This module implements downsampling, separable box convolution, color transformation, caching, and coordinate resampling. Inputs are a decoded image, a mapping rectangle, and numeric parameters. Output is Canvas pixel data. Core computation is independent of text masks.

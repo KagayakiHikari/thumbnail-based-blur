@@ -4,6 +4,16 @@ const defaults = { maxSize: 256, blur: 20, saturation: 1.8, brightness: 1.04, bo
 const canvas = () => document.createElement('canvas');
 const context = c => { const ctx = c.getContext('2d'); if (!ctx) throw new Error('Canvas 2D is unavailable'); return ctx; };
 
+function sourceSize(source) {
+  const width = source.videoWidth ?? source.naturalWidth ?? source.width;
+  const height = source.videoHeight ?? source.naturalHeight ?? source.height;
+  if (source.complete === false || (source.readyState !== undefined && source.readyState < 2) ||
+      !Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
+    throw new Error('Source must be a decoded image, a nonempty canvas, or a video with a current frame');
+  }
+  return { width, height };
+}
+
 /** One cached wallpaper per instance. Coordinates are CSS pixels in viewport space. */
 export class ThumbnailBlur {
   constructor(options = {}) {
@@ -17,26 +27,27 @@ export class ThumbnailBlur {
 
   invalidate() { this.revision++; this.key = ''; }
 
-  /** Call after wallpaper/layout/options change. Never call blur inside a render loop. */
+  /** Rebuild after source/layout/options changes. Dynamic sources require invalidate() before each sample. */
   prepare(image, bounds, options = {}) {
     this.options = { ...this.options, ...options };
     const o = this.options;
-    if (!image.complete || !image.naturalWidth) throw new Error('Decode the image before preparing the cache');
+    const size = sourceSize(image);
     if (![bounds.width, bounds.height].every(n => Number.isFinite(n) && n > 0)) throw new RangeError('Invalid background bounds');
     if (!Number.isFinite(o.maxSize) || o.maxSize < 1 || o.maxSize > 1024 || !Number.isFinite(o.blur) || o.blur < 0 || o.blur > 512) throw new RangeError('Invalid thumbnail or blur size');
     if (![o.saturation, o.brightness, o.boost].every(n => Number.isFinite(n) && n >= 0 && n <= 10) || !Array.isArray(o.tint) || o.tint.length !== 4 || !o.tint.slice(0, 3).every(n => Number.isFinite(n) && n >= 0 && n <= 255) || !Number.isFinite(o.tint[3]) || o.tint[3] < 0 || o.tint[3] > 1 || !Array.isArray(o.position) || o.position.length !== 2 || !o.position.every(n => Number.isFinite(n) && n >= 0 && n <= 1)) throw new RangeError('Invalid material options');
     // DOMRect properties are prototype accessors, so object spread loses them.
     this.bounds = { left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height };
     // Origin may change without regenerating the texture. Failed CORS reads are cached too.
-    const key = JSON.stringify([image.currentSrc || image.src, image.naturalWidth, image.naturalHeight, bounds.width, bounds.height, o, this.revision]);
-    if (key === this.key) return this.status;
+    const key = JSON.stringify([image.currentSrc || image.src, size.width, size.height, bounds.width, bounds.height, o, this.revision]);
+    if (key === this.key && image === this.source) return this.status;
+    this.source = image;
     const scale = Math.min(1, o.maxSize / Math.max(bounds.width, bounds.height));
     this.cache.width = Math.max(1, Math.ceil(bounds.width * scale));
     this.cache.height = Math.max(1, Math.ceil(bounds.height * scale));
     this.scaleX = this.cache.width / bounds.width;
     this.scaleY = this.cache.height / bounds.height;
     const ctx = context(this.cache);
-    const rect = coverRect(image.naturalWidth, image.naturalHeight, bounds.width, bounds.height, o.position);
+    const rect = coverRect(size.width, size.height, bounds.width, bounds.height, o.position);
     // Opaque backing makes transparent source images deterministic.
     ctx.fillStyle = '#111827'; ctx.fillRect(0, 0, this.cache.width, this.cache.height);
     try {
@@ -46,6 +57,7 @@ export class ThumbnailBlur {
       pixels.data.set(tintPixels(boxBlur(pixels.data, pixels.width, pixels.height, radius), o));
       ctx.putImageData(pixels, 0, 0);
       this.status = 'ready';
+      this.lastError = null;
     } catch (error) {
       // Reset dimensions to clear the tainted flag before drawing the fallback.
       this.cache.width = this.cache.width;

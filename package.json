@@ -1,6 +1,6 @@
 {
-  "name": "thumbnail-based-blur",
-  "version": "0.2.0",
+  "name": "thumbnail-based-blur-realtime",
+  "version": "0.3.0",
   "description": "Downsampled image convolution, color transformation, caching, and coordinate resampling",
   "type": "module",
   "private": true,
@@ -12,6 +12,6 @@
     "dev": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
     "build": "node scripts/build.mjs",
-    "check": "node --check src/thumbnail-blur.js && node --check src/pixels.js && node --check demo/app.js"
+    "check": "node --check src/thumbnail-blur.js && node --check src/pixels.js && node --check demo/app.js && node --check src/frame-sampler.js"
   }
 }

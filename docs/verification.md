@@ -1,5 +1,7 @@
 # 验证范围
 
+> 0.3.0: This document describes the original static pipeline. See [realtime changes](realtime.md) for the offline FPS edition. / 此文描述原静态流程，离线帧率版本请参阅[实时扩展](realtime.md)。
+
 [English](verification.en.md) · **中文**
 
 语法检查、9 项自动测试和静态构建。测试覆盖独立朴素卷积对照、边缘半径、cover 映射、恒色与混色端点、参数拒绝、DOMRect 原型坐标、缓存命中与失效、读取失败回退、双语键与文档路径。

@@ -1,3 +1,9 @@
+# 0.3.0 — Offline realtime sampling
+
+- FrameSampler with configurable FPS, hidden-page suspension, missed-frame skipping, stop/dispose, and error handling.
+- Image, Canvas and video inputs; source identity participates in cache reuse.
+- Dynamic Canvas demo, sampling controls, measured FPS, offline launcher and portable dist output.
+
 # Changelog
 
 ## 0.2.0

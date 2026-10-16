@@ -4,9 +4,39 @@
 
 零运行依赖的浏览器图像处理模块。实现降采样、三轮可分离盒式卷积、颜色变换、缓存和坐标重采样。提供独立 ES 模块、可选 alpha 遮罩、双语参数演示、算法测试和静态构建。
 
-**版本：0.2.0。** 使用近似卷积和字节通道计算；不保证固定帧率或与 CSS `backdrop-filter` 像素等价。
+**离线实时采样版：0.3.0。** 使用近似卷积和字节通道计算；不保证固定帧率或与 CSS `backdrop-filter` 像素等价。
 
 文档与演示支持英文和中文，英语为默认语言，中文为第二语言。可在页面顶部切换，之后记住你的选择；切换语言时保留自定义文字和材质参数。
+
+## 实时采样与离线启动
+
+这是基于 0.2.0 独立复制的离线新项目。默认以 30 FPS 重新读取动态背景、降采样并执行模糊，演示滑块可调 1–60 FPS。取消“刷新采样”会保留最后一帧；背景动画和文字移动可独立开关。实测采样帧率每秒更新一次，目标值不代表设备一定能够达到。
+
+安装 Node.js 22 或更新版本后，双击 `start-offline.cmd`，打开 http://127.0.0.1:4175 。无需 npm 安装、网络、密钥或外部资源。停止服务可在终端按 Ctrl+C。也可用 `npm run dev`（默认端口 4173）。
+
+运行 `npm run build` 生成 `dist/`。该目录也包含本地服务器与启动脚本，复制到其他安装了 Node.js 的电脑即可离线运行。不能直接双击 HTML，因为浏览器需要通过 HTTP 加载 ES 模块。
+
+`prepare(source, bounds, options)` 现在接受已解码图片、非空 Canvas、已有当前帧的视频。动态源每次刷新前必须调用 `invalidate()`。演示使用动态 Canvas，视频接入方式见下：
+
+```js
+import { ThumbnailBlur } from './src/thumbnail-blur.js';
+import { FrameSampler } from './src/frame-sampler.js';
+const video = document.querySelector('video');
+const output = document.querySelector('canvas');
+const material = new ThumbnailBlur({ maxSize: 256, blur: 20 });
+const sampler = new FrameSampler(() => {
+  if (video.readyState < 2) return;
+  material.invalidate();
+  material.prepare(video, video.getBoundingClientRect());
+  material.draw(output, output.getBoundingClientRect());
+}, { fps: 30, onError: console.error });
+sampler.start();
+// sampler.setFPS(15); // 核心支持 1–120 FPS
+// sampler.stop();    // 保留缓存
+// sampler.dispose(); // 卸载并移除监听器
+```
+
+刷新由 requestAnimationFrame 限速，错过的帧会跳过，不会排队补算。页面隐藏时暂停，回到前台恢复；手动停止后不会自动重启。采样和元素移动绘制互相独立。所有像素处理仍在主线程，实际帧率受屏幕刷新率和计算成本限制。不会自动截取 DOM、CSS 多层背景或网页视频；视频必须作为指定源传入，并满足同源或 CORS 读取条件。
 
 ## 演示
 
@@ -59,7 +89,7 @@ GitHub 仓库发布和 npm 包发布是不同操作；当前 `package.json` 设�
 
 ## 使用核心模块
 
-将 `src/` 内两个模块一起复制到项目，保持相对路径：
+将 `src/` 内所有模块一起复制到项目，保持相对路径：
 
 ```js
 import { ThumbnailBlur } from './src/thumbnail-blur.js';
@@ -103,11 +133,11 @@ text.refresh();
 text.dispose();
 ```
 
-改文字前先 `dispose()` 再修改内容、重新 attach。调整背景尺寸或材质时先 `prepare()` 再 `render()`；背景 URL 内容变化时额外调用 `invalidate()`。运动时仅重采样材质，不重复模糊。由调用方掌管动画帧，库不自动持续测量整页。React 中可在 effect 里初始化，cleanup 中 `dispose()`，效果循环由组件管理。
+改文字前先 `dispose()` 再修改内容、重新 attach。调整背景尺寸或材质时先 `prepare()` 再 `render()`；背景 URL 内容变化时额外调用 `invalidate()`。元素运动只重采样已有材质；开启 FrameSampler 时按目标帧率重新计算模糊。库不自动持续测量整页。React 中可在 effect 里初始化，cleanup 中 `dispose()`，效果循环由组件管理。
 
 ## 边界
 
-- 只读取指定静态壁纸，不会采样壁纸前面的卡片、视频、多层 CSS 背景或任意 CSS 变换。
+- 只读取指定图片、Canvas 或视频源，不会自动合成前景卡片、多层 CSS 背景或任意 CSS 变换。
 - 三轮盒式模糊和颜色计算是近似算法；小尺寸采样会降低精细度，半径系数 `0.58` 是实验值。
 - 非同源图片需服务器允许 CORS，并在设置 `src` **之前**设置 `image.crossOrigin = 'anonymous'`。读取失败时缓存填充色，调用 `invalidate()` 后可重试。
 - 中文和常规拉丁文字可用于试验。逐字符 Canvas 栅格化无法准确保留复杂连字、阿拉伯文塑形、组合字符和所有 emoji；不作为完整排版引擎。原生 DOM 文本仍保留给辅助技术。

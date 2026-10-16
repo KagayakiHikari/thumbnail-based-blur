@@ -1,5 +1,7 @@
 # Validation scope
 
+> 0.3.0: This document describes the original static pipeline. See [realtime changes](realtime.md) for the offline FPS edition. / 此文描述原静态流程，离线帧率版本请参阅[实时扩展](realtime.md)。
+
 **English** · [中文](verification.md)
 
 Syntax checks, nine automated tests, and a static build. Tests cover an independent naive-convolution reference, edge radii, cover mapping, constant colors and tint endpoints, rejected parameters, DOMRect prototype coordinates, cache hits and invalidation, read-failure fallback, translation keys, and document paths.

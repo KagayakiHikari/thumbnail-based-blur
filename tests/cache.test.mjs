@@ -32,3 +32,19 @@ test('failed pixel read is cached until explicit invalidation', () => {
   assert.equal(material.prepare(image,rect),'fallback'); assert.equal(material.buildCount,1);
   material.invalidate(); material.prepare(image,rect); assert.equal(material.buildCount,2);
 });
+
+test('dynamic canvas refreshes only on invalidation and replacing equal-sized sources rebuilds', () => {
+  const material = new ThumbnailBlur(); const rect = {left:0,top:0,width:100,height:100};
+  const source = fakeCanvas(); source.width = 200; source.height = 100;
+  material.prepare(source,rect); material.prepare(source,rect); assert.equal(material.buildCount,1);
+  material.invalidate(); material.prepare(source,rect); assert.equal(material.buildCount,2);
+  material.prepare({...source},rect); assert.equal(material.buildCount,3);
+});
+test('video accepts current frames, rejects unavailable frames, and tracks dimension changes', () => {
+  const material = new ThumbnailBlur(); const rect = {left:0,top:0,width:100,height:100};
+  const video = {videoWidth:200,videoHeight:100,readyState:1};
+  assert.throws(()=>material.prepare(video,rect), /current frame/);
+  video.readyState=2; material.prepare(video,rect); video.videoWidth=300; material.prepare(video,rect);
+  assert.equal(material.buildCount,2);
+  assert.throws(()=>material.prepare({width:0,height:1},rect), /nonempty canvas/);
+});
